@@ -4,19 +4,35 @@ import Expense from "../components/Expense";
 import { DUMMY_EXPENSES } from "../utils/dummy-data";
 import { themeColors } from "../utils/colors";
 import Total from "../components/Total";
+import EditExpenseModal from "../components/EditExpenseModal";
 
 const RecentExpenses = () => {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  const showModalHandler = () => setIsModalVisible(true);
+
+  const closeModalHandler = () => setIsModalVisible(false);
+
   return (
     <View style={styles.screen}>
       <View style={styles.totalContainer}>
         <Total title="Last 7 Days" amount="$25.65" />
       </View>
+      <EditExpenseModal
+        isVisible={isModalVisible}
+        closeModal={closeModalHandler}
+      />
       <FlatList
         data={DUMMY_EXPENSES}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.expenseContainer}>
-            <Expense title={item.title} date={item.date} amount={item.amount} />
+            <Expense
+              title={item.title}
+              date={item.date}
+              amount={item.amount}
+              onPress={showModalHandler}
+            />
           </View>
         )}
       />

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Pressable, Dimensions } from "react-native";
 import React from "react";
 import { themeColors } from "../utils/colors";
 
@@ -6,9 +6,10 @@ type Props = {
   title: string;
   date: Date;
   amount: number;
+  onPress?: () => void;
 };
 
-const Expense = ({ title, date, amount }: Props) => {
+const Expense = ({ title, date, amount, onPress }: Props) => {
   const month = date.getMonth() + 1;
   const formatedMonth = month >= 10 ? month : "0" + month;
 
@@ -19,7 +20,7 @@ const Expense = ({ title, date, amount }: Props) => {
     date.getFullYear() + "-" + formatedMonth + "-" + formatedDay;
 
   return (
-    <View style={styles.expense}>
+    <Pressable style={styles.expense} onPress={onPress}>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.date}>{formatedDate}</Text>
@@ -27,7 +28,7 @@ const Expense = ({ title, date, amount }: Props) => {
       <View style={styles.amountContainer}>
         <Text style={styles.amount}>{amount}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
