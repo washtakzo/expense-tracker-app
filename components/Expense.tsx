@@ -11,6 +11,7 @@ type Props = {
 const Expense = ({ title, date, amount }: Props) => {
   const month = date.getMonth() + 1;
   const formatedMonth = month >= 10 ? month : "0" + month;
+
   const day = date.getDay();
   const formatedDay = day >= 10 ? day : "0" + day;
 
