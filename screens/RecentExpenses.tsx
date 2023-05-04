@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, FlatList, Dimensions } from "react-native";
 import React from "react";
 import Expense from "../components/Expense";
 import { DUMMY_EXPENSES } from "../utils/dummy-data";
@@ -9,13 +9,17 @@ const RecentExpenses = () => {
   return (
     <View style={styles.screen}>
       <View style={styles.totalContainer}>
-        <Total title="Total" amount="$25.65" />
+        <Total title="Last 7 Days" amount="$25.65" />
       </View>
-      {DUMMY_EXPENSES.map(({ title, date, amount }) => (
-        <View style={styles.expenseContainer}>
-          <Expense title={title} date={date} amount={amount} />
-        </View>
-      ))}
+      <FlatList
+        data={DUMMY_EXPENSES}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.expenseContainer}>
+            <Expense title={item.title} date={item.date} amount={item.amount} />
+          </View>
+        )}
+      />
     </View>
   );
 };
