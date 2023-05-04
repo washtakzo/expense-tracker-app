@@ -6,6 +6,7 @@ import AllExpenses from "./screens/AllExpenses";
 import RecentExpenses from "./screens/RecentExpenses";
 import { themeColors } from "./utils/colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import AddButton from "./components/AddButton";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,6 +22,7 @@ export default function App() {
           tabBarActiveTintColor: themeColors.thirdDark,
           tabBarInactiveBackgroundColor: themeColors.secondaryDark,
           tabBarInactiveTintColor: themeColors.textInactive,
+          headerRight: () => <AddButton />,
         }}
       >
         <Tab.Screen
