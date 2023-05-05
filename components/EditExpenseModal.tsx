@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, Pressable } from "react-native";
+import { StyleSheet, View, Dimensions, Pressable } from "react-native";
 import React from "react";
 import { themeColors } from "../utils/colors";
 import { Button as ModalButton } from "./Button";
