@@ -9,7 +9,7 @@ type Props = {
   children: any; //FIXME:
 };
 
-export const Button = ({
+const CustomButton = ({
   onPress,
   containerStyle,
   textStyle,
@@ -22,7 +22,7 @@ export const Button = ({
   );
 };
 
-// export default Button;
+export default CustomButton;
 
 const deviceWidth = Dimensions.get("window").width;
 

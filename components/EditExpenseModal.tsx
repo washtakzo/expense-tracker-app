@@ -1,7 +1,7 @@
 import { StyleSheet, View, Dimensions, Pressable } from "react-native";
 import React from "react";
 import { themeColors } from "../utils/colors";
-import { Button as ModalButton } from "./Button";
+import CustomButton from "./CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 import ModalCard from "./UI/ModalCard";
 
@@ -15,14 +15,14 @@ const EditExpenseModal = ({ isVisible, closeModal }: Props) => {
     <ModalCard isVisible={isVisible} title="Edit Expense">
       <View style={styles.userChoicesContainer}>
         <View style={styles.buttonsContainer}>
-          <ModalButton
+          <CustomButton
             containerStyle={styles.cancelButtonContainer}
             textStyle={styles.cancelButtonText}
             onPress={closeModal}
           >
             Cancel
-          </ModalButton>
-          <ModalButton onPress={closeModal}>Update</ModalButton>
+          </CustomButton>
+          <CustomButton onPress={closeModal}>Update</CustomButton>
         </View>
         <View style={styles.divider}></View>
         <Pressable onPress={closeModal}>
