@@ -21,7 +21,7 @@ const ModalCard = ({ children, isVisible, title }: Props) => {
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{title}</Text>
         </View>
-        <View>{children}</View>
+        <View style={styles.contentContainer}>{children}</View>
       </View>
     </Modal>
   );
@@ -55,5 +55,9 @@ const styles = StyleSheet.create({
   title: {
     color: themeColors.textOnSecondary,
     fontWeight: "bold",
+  },
+  contentContainer: {
+    paddingVertical: deviceWidth / 24,
+    paddingHorizontal: deviceWidth / 12,
   },
 });

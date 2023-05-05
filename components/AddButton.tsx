@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
   modalButtonsContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    padding: deviceWidth / 24,
   },
   cancelButton: {
     backgroundColor: "#ffffff0",

@@ -43,8 +43,6 @@ const deviceWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   userChoicesContainer: {
-    paddingVertical: deviceWidth / 24,
-    paddingHorizontal: deviceWidth / 12,
     alignItems: "center",
   },
   buttonsContainer: {
