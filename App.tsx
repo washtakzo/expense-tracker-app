@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllExpenses from "./screens/AllExpenses";
@@ -9,6 +9,11 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import AddButton from "./components/AddButton";
 
 const Tab = createBottomTabNavigator();
+
+//TODO:Redux or Context for :
+//TODO:Add Expense
+//TODO:Delete Expense
+//TODO:Update Expense
 
 export default function App() {
   return (

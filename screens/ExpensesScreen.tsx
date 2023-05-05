@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, FlatList, Dimensions } from "react-native";
+import { StyleSheet, View, FlatList, Dimensions } from "react-native";
 import React from "react";
 import Expense from "../components/Expense";
-import { DUMMY_EXPENSES } from "../utils/dummy-data";
 import { themeColors } from "../utils/colors";
 import Total from "../components/Total";
 import EditExpenseModal from "../components/EditExpenseModal";
