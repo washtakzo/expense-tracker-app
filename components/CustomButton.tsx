@@ -1,12 +1,16 @@
 import { StyleSheet, Text, View, Pressable, Dimensions } from "react-native";
+import {
+  ViewStyle,
+  TextStyle,
+} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 import React from "react";
 import { themeColors } from "../utils/colors";
 
 type Props = {
   onPress?: () => void;
-  containerStyle?: any; //FIXME:
-  textStyle?: any; //FIXME:
-  children: any; //FIXME:
+  containerStyle?: ViewStyle;
+  textStyle?: TextStyle;
+  children: React.ReactNode;
 };
 
 const CustomButton = ({

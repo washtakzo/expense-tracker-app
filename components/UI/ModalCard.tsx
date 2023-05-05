@@ -3,7 +3,7 @@ import React from "react";
 import { themeColors } from "../../utils/colors";
 
 type Props = {
-  children: any; //FIXME:
+  children: React.ReactNode;
   title: string;
   isVisible: boolean;
 };
