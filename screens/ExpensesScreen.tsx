@@ -19,10 +19,14 @@ const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
 
   const closeModalHandler = () => setIsModalVisible(false);
 
+  const totalAmount = expenses.reduce((acc, currentExpense) => {
+    return currentExpense.amount + acc;
+  }, 0);
+
   return (
     <View style={styles.screen}>
       <View style={styles.totalContainer}>
-        <Total title={totalTitle} amount="$842.65" />
+        <Total title={totalTitle} amount={"$" + totalAmount} />
       </View>
       <FlatList
         data={expenses}

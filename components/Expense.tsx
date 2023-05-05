@@ -13,7 +13,7 @@ const Expense = ({ title, date, amount, onPress }: Props) => {
   const month = date.getMonth() + 1;
   const formatedMonth = month >= 10 ? month : "0" + month;
 
-  const day = date.getDay();
+  const day = date.getDate();
   const formatedDay = day >= 10 ? day : "0" + day;
 
   const formatedDate =
