@@ -5,6 +5,8 @@ import { themeColors } from "../utils/colors";
 import Total from "../components/Total";
 import EditExpenseModal from "../components/EditExpenseModal";
 import { Expense as ExpenseType } from "../utils/types";
+import { useDispatch } from "react-redux";
+import { expenseActions } from "../store/expenses-slice";
 
 type Props = {
   totalTitle: string;

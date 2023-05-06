@@ -18,9 +18,9 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <StatusBar style="light" />
-      <Provider store={store}>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StatusBar style="light" />
         <Tab.Navigator
           screenOptions={{
             headerStyle: { backgroundColor: themeColors.secondaryDark },
@@ -53,7 +53,7 @@ export default function App() {
             }}
           />
         </Tab.Navigator>
-      </Provider>
-    </NavigationContainer>
+      </NavigationContainer>
+    </Provider>
   );
 }

@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { Expense } from "../utils/types";
+import { DUMMY_EXPENSES } from "../utils/dummy-data";
 
 type SliceData = {
   expenses: Expense[];
 };
 
 const initialState: SliceData = {
-  expenses: [],
+  expenses: DUMMY_EXPENSES,
 };
 
 const expensesSlice = createSlice({

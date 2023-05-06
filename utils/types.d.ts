@@ -4,3 +4,7 @@ export type Expense = {
   date: Date;
   amount: number;
 };
+
+export type ExpensesStateStore = {
+  expenseSection: { expenses: Expense[] };
+};
