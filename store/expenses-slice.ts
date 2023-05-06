@@ -44,3 +44,6 @@ const expensesSlice = createSlice({
     },
   },
 });
+
+export const expenseReducer = expensesSlice.reducer;
+export const expenseActions = expensesSlice.actions;
