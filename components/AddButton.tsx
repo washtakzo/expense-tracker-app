@@ -6,10 +6,13 @@ import ModalCard from "./UI/ModalCard";
 import CustomButton from "./CustomButton";
 import { useDispatch } from "react-redux";
 import { expenseActions } from "../store/expenses-slice";
+import { useNavigation } from "@react-navigation/native";
 
 const deviceWidth = Dimensions.get("window").width;
 
 const AddButton = () => {
+  const navigation = useNavigation();
+
   const [isModalVisible, setIsModalVisble] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -37,6 +40,8 @@ const AddButton = () => {
     );
 
     closeModal();
+
+    navigation.navigate({ name: "AddExpenseScreen" });
   };
 
   return (
