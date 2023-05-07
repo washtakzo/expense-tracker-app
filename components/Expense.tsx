@@ -3,13 +3,14 @@ import React from "react";
 import { themeColors } from "../utils/colors";
 
 type Props = {
+  id: string;
   title: string;
   date: string;
   amount: string;
   onPress?: () => void;
 };
 
-const Expense = ({ title, date, amount, onPress }: Props) => {
+const Expense = ({ id, title, date, amount, onPress }: Props) => {
   const dateArray = date.split("-");
   const year = dateArray[0];
   let month = dateArray[1];

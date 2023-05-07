@@ -4,13 +4,23 @@ import { themeColors } from "../utils/colors";
 import CustomButton from "./CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 import ModalCard from "./UI/ModalCard";
+import { useDispatch } from "react-redux";
+import { expenseActions } from "../store/expenses-slice";
 
 type Props = {
   isVisible: boolean;
   closeModal: () => void;
+  expenseId: string;
 };
 
-const EditExpenseModal = ({ isVisible, closeModal }: Props) => {
+const EditExpenseModal = ({ isVisible, closeModal, expenseId }: Props) => {
+  const dispatch = useDispatch();
+
+  const deleteExpenseHandler = () => {
+    dispatch(expenseActions.removeExpense({ expenseId: expenseId }));
+    closeModal();
+  };
+
   return (
     <ModalCard isVisible={isVisible} title="Edit Expense">
       <View style={styles.userChoicesContainer}>
@@ -25,7 +35,7 @@ const EditExpenseModal = ({ isVisible, closeModal }: Props) => {
           <CustomButton onPress={closeModal}>Update</CustomButton>
         </View>
         <View style={styles.divider}></View>
-        <Pressable onPress={closeModal}>
+        <Pressable onPress={deleteExpenseHandler}>
           <Ionicons
             name="trash"
             size={deviceWidth / 12}

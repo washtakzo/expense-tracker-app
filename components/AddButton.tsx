@@ -35,6 +35,8 @@ const AddButton = () => {
         },
       })
     );
+
+    closeModal();
   };
 
   return (
