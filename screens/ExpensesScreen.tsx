@@ -13,7 +13,7 @@ type Props = {
 
 const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-  const [selectedExpenseId, setSelectedExpenseId] = React.useState("");
+  const [selectedExpense, setSelectedExpense] = React.useState<ExpenseType>();
 
   const showModalHandler = () => setIsModalVisible(true);
   const closeModalHandler = () => setIsModalVisible(false);
@@ -39,7 +39,7 @@ const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
               amount={item.amount}
               onPress={() => {
                 showModalHandler();
-                setSelectedExpenseId(item.id);
+                setSelectedExpense(item);
               }}
             />
           </View>
@@ -48,7 +48,7 @@ const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
       <EditExpenseModal
         isVisible={isModalVisible}
         closeModal={closeModalHandler}
-        expenseId={selectedExpenseId}
+        expense={selectedExpense}
       />
     </View>
   );

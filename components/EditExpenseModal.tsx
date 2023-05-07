@@ -6,31 +6,39 @@ import { Ionicons } from "@expo/vector-icons";
 import ModalCard from "./UI/ModalCard";
 import { useDispatch } from "react-redux";
 import { expenseActions } from "../store/expenses-slice";
+import { Expense, Navigation } from "../utils/types";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
   isVisible: boolean;
   closeModal: () => void;
-  expenseId: string;
+  expense?: Expense;
 };
 
-const EditExpenseModal = ({ isVisible, closeModal, expenseId }: Props) => {
+const EditExpenseModal = ({ isVisible, closeModal, expense }: Props) => {
   const dispatch = useDispatch();
 
+  const navigation = useNavigation<Navigation>();
+
   const deleteExpenseHandler = () => {
-    dispatch(expenseActions.removeExpense({ expenseId: expenseId }));
+    dispatch(expenseActions.removeExpense({ expenseId: expense!.id }));
     closeModal();
   };
 
   const updateHandler = () => {
-    dispatch(
-      expenseActions.updateExpense({
-        expenseId: expenseId,
-        expenseTitle: "updatedddd",
-        expenseAmount: "12",
-      })
-    );
+    // dispatch(
+    //   expenseActions.updateExpense({
+    //     expenseId: expense.id,
+    //     expenseTitle: "updatedddd",
+    //     expenseAmount: "12",
+    //   })
+    // );
 
     closeModal();
+    navigation.navigate({
+      name: "ManageExpenseScreen",
+      params: { expense: expense },
+    });
   };
 
   return (

@@ -19,7 +19,7 @@ const AddButton = () => {
   const closeModal = () => setIsModalVisble(false);
 
   const addExpense = () => {
-    navigation.navigate({ name: "AddExpenseScreen" });
+    navigation.navigate({ name: "ManageExpenseScreen" });
     closeModal();
   };
 

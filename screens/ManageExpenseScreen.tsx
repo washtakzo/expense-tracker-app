@@ -3,7 +3,6 @@ import {
   Text,
   View,
   TextInput,
-  Dimensions,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
@@ -13,15 +12,27 @@ import CustomButton from "../components/CustomButton";
 import { useDispatch } from "react-redux";
 import { expenseActions } from "../store/expenses-slice";
 import { dateToFormattedString } from "../utils/functions";
-import { useNavigation } from "@react-navigation/native";
-import { Navigation as NavigationType } from "../utils/types";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Expense, Navigation as NavigationType } from "../utils/types";
 
-const AddExpenseScreen = () => {
+type Route = {
+  key: string;
+  name: string;
+  params: { expense?: Expense };
+};
+
+const ManageExpenseScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationType>();
+  const route = useRoute<Route>();
 
-  const [title, setTitle] = React.useState("");
-  const [amount, setAmount] = React.useState("");
+  const expenseToUpdate = route.params?.expense;
+
+  const isAddExpenseScreen = !expenseToUpdate;
+  const isUpdateExpenseScreen = !!expenseToUpdate;
+
+  const [title, setTitle] = React.useState(expenseToUpdate?.title || "");
+  const [amount, setAmount] = React.useState(expenseToUpdate?.amount || "");
 
   const onChangeTitle = (enteredText: string) => {
     setTitle(enteredText);
@@ -35,16 +46,26 @@ const AddExpenseScreen = () => {
     const todayDate = new Date();
     const formattedDate = dateToFormattedString(todayDate);
 
-    dispatch(
-      expenseActions.addExpenses({
-        newExpense: {
-          id: todayDate.toString(), //date a la seconde près
-          title: title,
-          amount: amount,
-          date: formattedDate,
-        },
-      })
-    );
+    if (isAddExpenseScreen) {
+      dispatch(
+        expenseActions.addExpenses({
+          newExpense: {
+            id: todayDate.toString(), //date a la seconde près
+            title: title,
+            amount: amount,
+            date: formattedDate,
+          },
+        })
+      );
+    } else if (isUpdateExpenseScreen) {
+      dispatch(
+        expenseActions.updateExpense({
+          expenseId: expenseToUpdate!.id,
+          expenseAmount: amount,
+          expenseTitle: title,
+        })
+      );
+    }
 
     navigation.goBack();
   };
@@ -84,9 +105,7 @@ const AddExpenseScreen = () => {
   );
 };
 
-export default AddExpenseScreen;
-
-const deviceWidth = Dimensions.get("window").width;
+export default ManageExpenseScreen;
 
 const styles = StyleSheet.create({
   screen: {

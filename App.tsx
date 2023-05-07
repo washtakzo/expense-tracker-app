@@ -9,7 +9,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import AddButton from "./components/AddButton";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import AddExpenseScreen from "./screens/AddExpenseScreen";
+import ManageExpenseScreen from "./screens/ManageExpenseScreen";
 
 const NativeStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -63,8 +63,8 @@ export default function App() {
         >
           <NativeStack.Screen name="TabNavigator" component={TabNavigator} />
           <NativeStack.Screen
-            name="AddExpenseScreen"
-            component={AddExpenseScreen}
+            name="ManageExpenseScreen"
+            component={ManageExpenseScreen}
             options={{ headerShown: true }}
           />
         </NativeStack.Navigator>
