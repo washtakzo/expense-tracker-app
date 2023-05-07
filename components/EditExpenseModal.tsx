@@ -21,6 +21,18 @@ const EditExpenseModal = ({ isVisible, closeModal, expenseId }: Props) => {
     closeModal();
   };
 
+  const updateHandler = () => {
+    dispatch(
+      expenseActions.updateExpense({
+        expenseId: expenseId,
+        expenseTitle: "updatedddd",
+        expenseAmount: "12",
+      })
+    );
+
+    closeModal();
+  };
+
   return (
     <ModalCard isVisible={isVisible} title="Edit Expense">
       <View style={styles.userChoicesContainer}>
@@ -32,7 +44,7 @@ const EditExpenseModal = ({ isVisible, closeModal, expenseId }: Props) => {
           >
             Cancel
           </CustomButton>
-          <CustomButton onPress={closeModal}>Update</CustomButton>
+          <CustomButton onPress={updateHandler}>Update</CustomButton>
         </View>
         <View style={styles.divider}></View>
         <Pressable onPress={deleteExpenseHandler}>

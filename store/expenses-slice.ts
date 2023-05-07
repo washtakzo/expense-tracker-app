@@ -24,7 +24,7 @@ const expensesSlice = createSlice({
       );
       state.expenses = newExpenses;
     },
-    editExpense(
+    updateExpense(
       state,
       action: PayloadAction<{
         expenseId: string;
