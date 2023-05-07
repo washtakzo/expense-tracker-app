@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 100,
   },
   emptySpace: {
-    flex: 10,
+    flex: 20,
   },
   container: {
     flex: 80,

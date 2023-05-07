@@ -1,9 +1,14 @@
 import React from "react";
 import ExpensesScreen from "./ExpensesScreen";
-import { DUMMY_EXPENSES } from "../utils/dummy-data";
+import { useSelector } from "react-redux";
+import { ExpensesStateStore } from "../utils/types";
 
 const RecentExpenses = () => {
-  const last7DaysExpenses = DUMMY_EXPENSES.filter((expense) => {
+  const expenses = useSelector(
+    (state: ExpensesStateStore) => state.expenseSection.expenses
+  );
+
+  const last7DaysExpenses = expenses.filter((expense) => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
@@ -11,7 +16,9 @@ const RecentExpenses = () => {
 
     const date7DaysAgo = new Date(currentYear, currentMonth, currentDay - 7);
 
-    return expense.date > date7DaysAgo;
+    const expenseDate = new Date(expense.date);
+
+    return expenseDate > date7DaysAgo;
   });
 
   return (

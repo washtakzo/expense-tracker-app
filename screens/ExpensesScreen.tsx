@@ -13,19 +13,19 @@ type Props = {
 
 const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [selectedExpenseId, setSelectedExpenseId] = React.useState("");
 
   const showModalHandler = () => setIsModalVisible(true);
-
   const closeModalHandler = () => setIsModalVisible(false);
 
   const totalAmount = expenses.reduce((acc, currentExpense) => {
-    return currentExpense.amount + acc;
+    return +currentExpense.amount + acc;
   }, 0);
 
   return (
     <View style={styles.screen}>
       <View style={styles.totalContainer}>
-        <Total title={totalTitle} amount={"$" + totalAmount} />
+        <Total title={totalTitle} amount={"$" + totalAmount.toFixed(2)} />
       </View>
       <FlatList
         data={expenses}
@@ -33,10 +33,14 @@ const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
         renderItem={({ item }) => (
           <View style={styles.expenseContainer}>
             <Expense
+              id={item.id}
               title={item.title}
               date={item.date}
               amount={item.amount}
-              onPress={showModalHandler}
+              onPress={() => {
+                showModalHandler();
+                setSelectedExpenseId(item.id);
+              }}
             />
           </View>
         )}
@@ -44,6 +48,7 @@ const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
       <EditExpenseModal
         isVisible={isModalVisible}
         closeModal={closeModalHandler}
+        expenseId={selectedExpenseId}
       />
     </View>
   );
