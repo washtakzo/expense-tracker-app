@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, Dimensions } from "react-native";
 import React from "react";
 import { themeColors } from "../utils/colors";
 import CustomButton from "../components/CustomButton";
@@ -43,42 +43,58 @@ const AddExpenseScreen = () => {
 
   return (
     <View style={styles.screen}>
-      <Text>AddExpenseScreenddd</Text>
-      <TextInput
-        style={styles.titleInput}
-        value={title}
-        onChangeText={onChangeTitle}
-        placeholder="Enter the expense Title"
-      />
-      <TextInput
-        style={styles.titleInput}
-        value={amount}
-        onChangeText={onChangeAmount}
-        placeholder="Enter the expense Amount"
-      />
-      <CustomButton
-        containerStyle={{ backgroundColor: themeColors.thirdDark }}
-        textStyle={{ color: themeColors.primaryDark }}
-        onPress={validateHandler}
-      >
-        Validate
-      </CustomButton>
+      <View style={styles.emptySpaceSmall}></View>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          value={title}
+          onChangeText={onChangeTitle}
+          placeholder="Enter the expense Title"
+        />
+        <TextInput
+          style={styles.input}
+          value={amount}
+          onChangeText={onChangeAmount}
+          placeholder="Enter the expense Amount"
+        />
+        <CustomButton
+          containerStyle={{ backgroundColor: themeColors.thirdDark }}
+          textStyle={{ color: themeColors.primaryDark }}
+          onPress={validateHandler}
+        >
+          Validate
+        </CustomButton>
+      </View>
+      <View style={styles.emptySpaceLarge}></View>
     </View>
   );
 };
 
 export default AddExpenseScreen;
 
+const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    alignItems: "center",
+    flex: 100,
     backgroundColor: themeColors.primaryDark,
   },
-  titleInput: {
+  container: {
+    flex: 30,
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  emptySpaceLarge: {
+    flex: 60,
+    width: "100%",
+  },
+  emptySpaceSmall: {
+    flex: 10,
+    width: "100%",
+  },
+  input: {
     backgroundColor: themeColors.secondaryDark,
     borderRadius: 4,
-    width: "60%",
     paddingHorizontal: 12,
   },
 });
