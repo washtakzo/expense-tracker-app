@@ -31,6 +31,12 @@ const ManageExpenseScreen = () => {
   const isAddExpenseScreen = !expenseToUpdate;
   const isUpdateExpenseScreen = !!expenseToUpdate;
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isAddExpenseScreen ? "New Expense" : "Edit Expense",
+    });
+  }, [navigation]);
+
   const [title, setTitle] = React.useState(expenseToUpdate?.title || "");
   const [amount, setAmount] = React.useState(expenseToUpdate?.amount || "");
 
@@ -129,5 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.secondaryDark,
     borderRadius: 4,
     paddingHorizontal: 12,
+    color: themeColors.textOnSecondary,
   },
 });

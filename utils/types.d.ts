@@ -13,4 +13,5 @@ export type ExpensesStateStore = {
 export type Navigation = {
   navigate: (properties: { name: string; params?: any }) => void;
   goBack: () => void;
+  setOptions: (params: any) => void;
 };
