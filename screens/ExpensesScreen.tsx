@@ -25,7 +25,7 @@ const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
   return (
     <View style={styles.screen}>
       <View style={styles.totalContainer}>
-        <Total title={totalTitle} amount={"$" + totalAmount} />
+        <Total title={totalTitle} amount={"$" + totalAmount.toFixed(2)} />
       </View>
       <FlatList
         data={expenses}
