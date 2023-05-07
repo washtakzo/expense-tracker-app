@@ -20,13 +20,18 @@ const AddButton = () => {
 
   const addExpense = () => {
     //FIXME: Dummy function
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate();
+
     dispatch(
       expenseActions.addExpenses({
         newExpense: {
-          id: 22 * Math.random(),
+          id: (22 * Math.random()).toString(),
           title: "test45",
-          date: new Date(),
-          amount: 775,
+          date: `${currentYear}-${currentMonth}-${currentDay}`,
+          amount: "775",
         },
       })
     );

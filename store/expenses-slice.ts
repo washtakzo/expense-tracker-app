@@ -18,7 +18,7 @@ const expensesSlice = createSlice({
     addExpenses(state, action: PayloadAction<{ newExpense: Expense }>) {
       state.expenses = [action.payload.newExpense, ...state.expenses];
     },
-    removeExpense(state, action: PayloadAction<{ expenseId: number }>) {
+    removeExpense(state, action: PayloadAction<{ expenseId: string }>) {
       const newExpenses = state.expenses.filter(
         (expense) => expense.id !== action.payload.expenseId
       );
@@ -27,9 +27,9 @@ const expensesSlice = createSlice({
     editExpense(
       state,
       action: PayloadAction<{
-        expenseId: number;
+        expenseId: string;
         expenseTitle: string;
-        expenseAmount: number;
+        expenseAmount: string;
       }>
     ) {
       state.expenses = state.expenses.map((expense) => {

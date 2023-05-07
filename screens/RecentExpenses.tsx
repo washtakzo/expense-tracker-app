@@ -11,7 +11,9 @@ const RecentExpenses = () => {
 
     const date7DaysAgo = new Date(currentYear, currentMonth, currentDay - 7);
 
-    return expense.date > date7DaysAgo;
+    const expenseDate = new Date(expense.date);
+
+    return expenseDate > date7DaysAgo;
   });
 
   return (

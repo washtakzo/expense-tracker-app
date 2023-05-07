@@ -4,20 +4,21 @@ import { themeColors } from "../utils/colors";
 
 type Props = {
   title: string;
-  date: Date;
-  amount: number;
+  date: string;
+  amount: string;
   onPress?: () => void;
 };
 
 const Expense = ({ title, date, amount, onPress }: Props) => {
-  const month = date.getMonth() + 1;
-  const formatedMonth = month >= 10 ? month : "0" + month;
+  const dateArray = date.split("-");
+  const year = dateArray[0];
+  let month = dateArray[1];
+  let day = dateArray[2];
 
-  const day = date.getDate();
-  const formatedDay = day >= 10 ? day : "0" + day;
+  month = month.length > 1 ? month : "0" + month;
+  day = day.length > 1 ? day : "0" + day;
 
-  const formatedDate =
-    date.getFullYear() + "-" + formatedMonth + "-" + formatedDay;
+  const formatedDate = `${year}-${month}-${day}`;
 
   return (
     <Pressable style={styles.expense} onPress={onPress}>

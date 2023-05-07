@@ -1,8 +1,8 @@
 export type Expense = {
-  id: number;
+  id: string;
   title: string;
-  date: Date;
-  amount: number;
+  date: string;
+  amount: string;
 };
 
 export type ExpensesStateStore = {

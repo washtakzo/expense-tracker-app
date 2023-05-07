@@ -21,7 +21,7 @@ const ExpensesScreen = ({ totalTitle, expenses }: Props) => {
   const closeModalHandler = () => setIsModalVisible(false);
 
   const totalAmount = expenses.reduce((acc, currentExpense) => {
-    return currentExpense.amount + acc;
+    return +currentExpense.amount + acc;
   }, 0);
 
   return (
