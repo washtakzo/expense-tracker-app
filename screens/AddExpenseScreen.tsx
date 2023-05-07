@@ -61,12 +61,15 @@ const AddExpenseScreen = () => {
           value={title}
           onChangeText={onChangeTitle}
           placeholder="Enter the expense Title"
+          placeholderTextColor={"#7c7c7c"}
         />
         <TextInput
           style={styles.input}
           value={amount}
           onChangeText={onChangeAmount}
           placeholder="Enter the expense Amount"
+          inputMode="numeric"
+          placeholderTextColor={"#7c7c7c"}
         />
         <CustomButton
           containerStyle={{ backgroundColor: themeColors.thirdDark }}
