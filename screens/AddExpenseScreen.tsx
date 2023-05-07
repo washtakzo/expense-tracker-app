@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, TextInput, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Dimensions,
+  Platform,
+  KeyboardAvoidingView,
+} from "react-native";
 import React from "react";
 import { themeColors } from "../utils/colors";
 import CustomButton from "../components/CustomButton";
@@ -42,7 +50,10 @@ const AddExpenseScreen = () => {
   };
 
   return (
-    <View style={styles.screen}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.screen}
+    >
       <View style={styles.emptySpaceSmall}></View>
       <View style={styles.container}>
         <TextInput
@@ -66,7 +77,7 @@ const AddExpenseScreen = () => {
         </CustomButton>
       </View>
       <View style={styles.emptySpaceLarge}></View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
