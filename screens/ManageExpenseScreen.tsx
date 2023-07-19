@@ -14,6 +14,7 @@ import { expenseActions } from "../store/expenses-slice";
 import { dateToFormattedString } from "../utils/functions";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Expense, Navigation as NavigationType } from "../utils/types";
+import { storeExpense } from "../utils/http";
 
 type Route = {
   key: string;
@@ -48,7 +49,7 @@ const ManageExpenseScreen = () => {
     setAmount(enteredText);
   };
 
-  const validateHandler = () => {
+  const validateHandler = async () => {
     const todayDate = new Date();
     const formattedDate = dateToFormattedString(todayDate);
 
@@ -63,6 +64,13 @@ const ManageExpenseScreen = () => {
           },
         })
       );
+      //TODO:add expense to firebase
+      storeExpense({
+        id: todayDate.toString(),
+        title: title,
+        amount: amount,
+        date: formattedDate,
+      });
     } else if (isUpdateExpenseScreen) {
       dispatch(
         expenseActions.updateExpense({

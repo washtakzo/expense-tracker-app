@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import ExpensesScreen from "./ExpensesScreen";
 import { useSelector } from "react-redux";
-import { ExpensesStateStore } from "../utils/types";
+import { Expense, ExpensesStateStore } from "../utils/types";
+import { fetchExpenses } from "../utils/http";
 
 const RecentExpenses = () => {
-  const expenses = useSelector(
-    (state: ExpensesStateStore) => state.expenseSection.expenses
-  );
+  // const expenses = useSelector(
+  //   (state: ExpensesStateStore) => state.expenseSection.expenses
+  // );
 
-  const last7DaysExpenses = expenses.filter((expense) => {
+  const [fetchedExpenses, setFetchedExpenses] = useState<Expense[]>([]);
+
+  React.useEffect(() => {
+    const sendRequest = async () => {
+      const expenses: Expense[] = await fetchExpenses();
+
+      setFetchedExpenses(expenses);
+    };
+    sendRequest();
+  }, []);
+
+  const last7DaysExpenses = fetchedExpenses.filter((expense) => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
