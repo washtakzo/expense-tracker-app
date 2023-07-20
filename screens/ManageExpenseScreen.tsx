@@ -14,7 +14,7 @@ import { expenseActions } from "../store/expenses-slice";
 import { dateToFormattedString } from "../utils/functions";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Expense, Navigation as NavigationType } from "../utils/types";
-import { storeExpense } from "../utils/http";
+import { deleteExpense, storeExpense, updateExpense } from "../utils/http";
 
 type Route = {
   key: string;
@@ -54,24 +54,39 @@ const ManageExpenseScreen = () => {
     const formattedDate = dateToFormattedString(todayDate);
 
     if (isAddExpenseScreen) {
+      //add expense to firebase
+      const response = await storeExpense({
+        title: title,
+        amount: amount,
+        date: formattedDate,
+      });
+
+      const data = await response.json();
+
+      const expenseId = data.name;
+
       dispatch(
-        expenseActions.addExpenses({
+        expenseActions.addExpense({
           newExpense: {
-            id: todayDate.toString(), //date a la seconde près
+            id: expenseId,
             title: title,
             amount: amount,
             date: formattedDate,
           },
         })
       );
-      //add expense to firebase
-      storeExpense({
-        id: todayDate.toString(),
-        title: title,
-        amount: amount,
-        date: formattedDate,
-      });
     } else if (isUpdateExpenseScreen) {
+      //update on firebase
+      try {
+        await updateExpense(expenseToUpdate!.id, {
+          amount: amount,
+          title: title,
+          date: expenseToUpdate!.date,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
       dispatch(
         expenseActions.updateExpense({
           expenseId: expenseToUpdate!.id,

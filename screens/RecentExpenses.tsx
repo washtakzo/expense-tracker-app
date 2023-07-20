@@ -17,7 +17,7 @@ const RecentExpenses = () => {
     const sendRequest = async () => {
       const fetchedExpenses: Expense[] = await fetchExpenses();
 
-      dispatch(expenseActions.setExepenses({ expenses: fetchedExpenses }));
+      dispatch(expenseActions.setExpenses({ expenses: fetchedExpenses }));
     };
     sendRequest();
   }, []);

@@ -5,6 +5,12 @@ export type Expense = {
   amount: string;
 };
 
+export type FirebaseExpense = {
+  title: string;
+  date: string;
+  amount: string;
+};
+
 export type ExpensesStateStore = {
   expenseSection: { expenses: Expense[] };
 };

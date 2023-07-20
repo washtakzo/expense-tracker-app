@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { expenseActions } from "../store/expenses-slice";
 import { Expense, Navigation } from "../utils/types";
 import { useNavigation } from "@react-navigation/native";
+import { deleteExpense } from "../utils/http";
 
 type Props = {
   isVisible: boolean;
@@ -20,20 +21,19 @@ const EditExpenseModal = ({ isVisible, closeModal, expense }: Props) => {
 
   const navigation = useNavigation<Navigation>();
 
-  const deleteExpenseHandler = () => {
+  const deleteExpenseHandler = async () => {
+    try {
+      await deleteExpense(expense!.id);
+    } catch (error) {
+      console.log(error);
+    }
+
     dispatch(expenseActions.removeExpense({ expenseId: expense!.id }));
+
     closeModal();
   };
 
   const updateHandler = () => {
-    // dispatch(
-    //   expenseActions.updateExpense({
-    //     expenseId: expense.id,
-    //     expenseTitle: "updatedddd",
-    //     expenseAmount: "12",
-    //   })
-    // );
-
     closeModal();
     navigation.navigate({
       name: "ManageExpenseScreen",

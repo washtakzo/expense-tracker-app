@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Expense } from "../utils/types";
+import { Expense, FirebaseExpense } from "../utils/types";
+import { storeExpense } from "../utils/http";
 
 type SliceData = {
   expenses: Expense[];
@@ -14,10 +15,10 @@ const expensesSlice = createSlice({
   name: "expenses_slice",
   initialState,
   reducers: {
-    addExpenses(state, action: PayloadAction<{ newExpense: Expense }>) {
+    addExpense(state, action: PayloadAction<{ newExpense: Expense }>) {
       state.expenses = [action.payload.newExpense, ...state.expenses];
     },
-    setExepenses(state, action: PayloadAction<{ expenses: Expense[] }>) {
+    setExpenses(state, action: PayloadAction<{ expenses: Expense[] }>) {
       //state.expenses = action.payload.expenses.reverse(); si on veut les afficher du plus recent au moins recent
       //Car à cause de firebase on les fetch de plus ancien au plus récent.
       state.expenses = action.payload.expenses;
