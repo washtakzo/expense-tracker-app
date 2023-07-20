@@ -6,7 +6,7 @@ import {
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { themeColors } from "../utils/colors";
 import CustomButton from "../components/CustomButton";
 import { useDispatch } from "react-redux";
@@ -14,7 +14,8 @@ import { expenseActions } from "../store/expenses-slice";
 import { dateToFormattedString } from "../utils/functions";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Expense, Navigation as NavigationType } from "../utils/types";
-import { deleteExpense, storeExpense, updateExpense } from "../utils/http";
+import { storeExpense, updateExpense } from "../utils/http";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 
 type Route = {
   key: string;
@@ -23,6 +24,8 @@ type Route = {
 };
 
 const ManageExpenseScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationType>();
   const route = useRoute<Route>();
@@ -55,11 +58,13 @@ const ManageExpenseScreen = () => {
 
     if (isAddExpenseScreen) {
       //add expense to firebase
+      setIsLoading(true);
       const response = await storeExpense({
         title: title,
         amount: amount,
         date: formattedDate,
       });
+      setIsLoading(false);
 
       const data = await response.json();
 
@@ -77,6 +82,7 @@ const ManageExpenseScreen = () => {
       );
     } else if (isUpdateExpenseScreen) {
       //update on firebase
+      setIsLoading(true);
       try {
         await updateExpense(expenseToUpdate!.id, {
           amount: amount,
@@ -86,6 +92,7 @@ const ManageExpenseScreen = () => {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
 
       dispatch(
         expenseActions.updateExpense({
@@ -98,6 +105,10 @@ const ManageExpenseScreen = () => {
 
     navigation.goBack();
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <KeyboardAvoidingView

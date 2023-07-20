@@ -5,8 +5,11 @@ import { Expense, ExpensesStateStore } from "../utils/types";
 import { fetchExpenses } from "../utils/http";
 import { useDispatch } from "react-redux";
 import { expenseActions } from "../store/expenses-slice";
+import LoadingOverlay from "../components/UI/LoadingOverlay";
 
 const RecentExpenses = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   const expenses = useSelector(
@@ -15,7 +18,11 @@ const RecentExpenses = () => {
 
   React.useEffect(() => {
     const sendRequest = async () => {
+      setIsLoading(true);
+
       const fetchedExpenses: Expense[] = await fetchExpenses();
+
+      setIsLoading(false);
 
       dispatch(expenseActions.setExpenses({ expenses: fetchedExpenses }));
     };
@@ -34,6 +41,10 @@ const RecentExpenses = () => {
 
     return expenseDate > date7DaysAgo;
   });
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <ExpensesScreen totalTitle="Last 7 Days" expenses={last7DaysExpenses} />
