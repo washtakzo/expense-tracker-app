@@ -64,7 +64,7 @@ const ManageExpenseScreen = () => {
           },
         })
       );
-      //TODO:add expense to firebase
+      //add expense to firebase
       storeExpense({
         id: todayDate.toString(),
         title: title,
