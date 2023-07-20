@@ -6,9 +6,11 @@ import { fetchExpenses } from "../utils/http";
 import { useDispatch } from "react-redux";
 import { expenseActions } from "../store/expenses-slice";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
 
 const RecentExpenses = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>();
 
   const dispatch = useDispatch();
 
@@ -20,11 +22,14 @@ const RecentExpenses = () => {
     const sendRequest = async () => {
       setIsLoading(true);
 
-      const fetchedExpenses: Expense[] = await fetchExpenses();
+      try {
+        const fetchedExpenses: Expense[] = await fetchExpenses();
+        dispatch(expenseActions.setExpenses({ expenses: fetchedExpenses }));
+      } catch (error) {
+        setError("Could not fetch expenses");
+      }
 
       setIsLoading(false);
-
-      dispatch(expenseActions.setExpenses({ expenses: fetchedExpenses }));
     };
     sendRequest();
   }, []);
@@ -44,6 +49,10 @@ const RecentExpenses = () => {
 
   if (isLoading) {
     return <LoadingOverlay />;
+  }
+
+  if (!isLoading && error) {
+    return <ErrorOverlay message={error} onConfirm={() => setError(null)} />;
   }
 
   return (

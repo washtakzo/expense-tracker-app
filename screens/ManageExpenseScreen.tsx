@@ -16,6 +16,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Expense, Navigation as NavigationType } from "../utils/types";
 import { storeExpense, updateExpense } from "../utils/http";
 import LoadingOverlay from "../components/UI/LoadingOverlay";
+import ErrorOverlay from "../components/UI/ErrorOverlay";
 
 type Route = {
   key: string;
@@ -25,6 +26,7 @@ type Route = {
 
 const ManageExpenseScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>();
 
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationType>();
@@ -59,55 +61,69 @@ const ManageExpenseScreen = () => {
     if (isAddExpenseScreen) {
       //add expense to firebase
       setIsLoading(true);
-      const response = await storeExpense({
-        title: title,
-        amount: amount,
-        date: formattedDate,
-      });
+      try {
+        const response = await storeExpense({
+          title: title,
+          amount: amount,
+          date: formattedDate,
+        });
+
+        const data = await response.json();
+
+        const expenseId = data.name;
+
+        dispatch(
+          expenseActions.addExpense({
+            newExpense: {
+              id: expenseId,
+              title: title,
+              amount: amount,
+              date: formattedDate,
+            },
+          })
+        );
+
+        navigation.goBack();
+      } catch (error) {
+        setError("Could not store the expense");
+      }
       setIsLoading(false);
-
-      const data = await response.json();
-
-      const expenseId = data.name;
-
-      dispatch(
-        expenseActions.addExpense({
-          newExpense: {
-            id: expenseId,
-            title: title,
-            amount: amount,
-            date: formattedDate,
-          },
-        })
-      );
     } else if (isUpdateExpenseScreen) {
       //update on firebase
       setIsLoading(true);
       try {
-        await updateExpense(expenseToUpdate!.id, {
+        const response = await updateExpense(expenseToUpdate!.id, {
           amount: amount,
           title: title,
           date: expenseToUpdate!.date,
         });
+
+        if (!response.ok) {
+          throw new Error("An error occured");
+        }
+
+        dispatch(
+          expenseActions.updateExpense({
+            expenseId: expenseToUpdate!.id,
+            expenseAmount: amount,
+            expenseTitle: title,
+          })
+        );
+
+        navigation.goBack();
       } catch (error) {
-        console.log(error);
+        setError("Could not update the expense");
       }
       setIsLoading(false);
-
-      dispatch(
-        expenseActions.updateExpense({
-          expenseId: expenseToUpdate!.id,
-          expenseAmount: amount,
-          expenseTitle: title,
-        })
-      );
     }
-
-    navigation.goBack();
   };
 
   if (isLoading) {
     return <LoadingOverlay />;
+  }
+
+  if (error && !isLoading) {
+    return <ErrorOverlay message={error} onConfirm={() => setError(null)} />;
   }
 
   return (

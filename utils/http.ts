@@ -10,7 +10,7 @@ export async function storeExpense(expense: FirebaseExpense) {
     headers: { "Content-Type": "application/json" },
   });
 
-  return addedExpenseId; //TODO:a tester
+  return addedExpenseId;
 }
 
 export async function fetchExpenses() {
